@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary Nurjahan! | From Manirul with Love</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;500;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- React and React DOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Particles.js for particle effects -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF4B91',
+                        secondary: '#A367B1',
+                        accent: '#FFD1DA',
+                        dark: '#1F1F1F',
+                        light: '#FFFFFF'
+                    },
+                    fontFamily: {
+                        handwritten: ['"Dancing Script"', 'cursive'],
+                        sans: ['"Poppins"', 'sans-serif'],
+                        display: ['"Montserrat"', 'sans-serif']
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/css">
+        /* Custom CSS that can't be handled by Tailwind */
+        body {
+            overflow-x: hidden;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(to right, #FF4B91, #A367B1, #FFD1DA);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(255, 75, 145, 0.8), rgba(163, 103, 177, 0.8), rgba(255, 209, 218, 0.8));
+        }
+        
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1F1F1F;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .heart-preloader {
+            width: 50px;
+            height: 50px;
+            position: relative;
+            animation: heartbeat 1.2s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .heart-preloader:before,
+        .heart-preloader:after {
+            content: "";
+            background-color: #FF4B91;
+            width: 30px;
+            height: 50px;
+            border-radius: 50px 50px 0 0;
+            position: absolute;
+            left: 10px;
+            top: 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+        
+        .heart-preloader:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+        
+        /* Particle container */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        /* Memory card hover effects */
+        .memory-card {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .memory-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .memory-card img {
+            transition: transform 0.5s ease;
+        }
+        
+        .memory-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .memory-card .memory-caption {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .memory-card:hover .memory-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Audio player styling */
+        .audio-player {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #FF4B91, #A367B1);
+            width: 0%;
+            border-radius: 3px;
+            transition: width 0.1s linear;
+        }
+        
+        .visualizer {
+            display: flex;
+            align-items: flex-end;
+            height: 60px;
+            gap: 2px;
+        }
+        
+        .visualizer-bar {
+            background: linear-gradient(to top, #FF4B91, #A367B1);
+            width: 4px;
+            height: 5px;
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+        
+        /* Typewriter effect */
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #FF4B91;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #FF4B91 }
+        }
+        
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .memory-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark text-light font-sans">
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="heart-preloader"></div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full bg-dark bg-opacity-80 backdrop-blur-md z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#home" class="text-2xl font-handwritten text-primary">M & N</a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="text-light hover:text-primary transition-colors">Home</a>
+                    <a href="#memories" class="text-light hover:text-primary transition-colors">Memories</a>
+                    <a href="#letter" class="text-light hover:text-primary transition-colors">Letter</a>
+                    <a href="#song" class="text-light hover:text-primary transition-colors">Song</a>
+                    <a href="#message" class="text-light hover:text-primary transition-colors">Message</a>
+                    <a href="#add-memory" class="text-light hover:text-primary transition-colors">Add Memory</a>
+                </div>
+                <button class="md:hidden text-light focus:outline-none" id="menu-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-dark bg-opacity-95 w-full absolute top-full left-0 py-4 px-4" id="mobile-menu">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="text-light hover:text-primary transition-colors">Home</a>
+                <a href="#memories" class="text-light hover:text-primary transition-colors">Memories</a>
+                <a href="#letter" class="text-light hover:text-primary transition-colors">Letter</a>
+                <a href="#song" class="text-light hover:text-primary transition-colors">Song</a>
+                <a href="#message" class="text-light hover:text-primary transition-colors">Message</a>
+                <a href="#add-memory" class="text-light hover:text-primary transition-colors">Add Memory</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div id="root"></div>
+    
+    <!-- React Components -->
+    <script type="text/babel">
+        // App Component
+        const App = () => {
+            return (
+                <div className="min-h-screen">
+                    <Hero />
+                    <Memories />
+                    <Letter />
+                    <Song />
+                    <Message />
+                    <AddMemory />
+                    <Footer />
+                </div>
+            );
+        };
+        
+        // Hero Section Component
+        const Hero = () => {
+            React.useEffect(() => {
+                // Initialize particles.js
+                particlesJS('particles-js', {
+                    particles: {
+                        number: {
+                            value: 80,
+                            density: {
+                                enable: true,
+                                value_area: 800
+                            }
+                        },
+                        color: {
+                            value: ["#FF4B91", "#A367B1", "#FFD1DA"]
+                        },
+                        shape: {
+                            type: "heart",
+                            stroke: {
+                                width: 0,
+                                color: "#000000"
+                            },
+                        },
+                        opacity: {
+                            value: 0.5,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        size: {
+                            value: 10,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        move: {
+                            enable: true,
+                            speed: 2,
+                            direction: "none",
+                            random: true,
+                            straight: false,
+                            out_mode: "out",
+                            bounce: false,
+                        }
+                    },
+                    interactivity: {
+                        detect_on: "canvas",
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: "bubble"
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: "repulse"
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            bubble: {
+                                distance: 250,
+                                size: 12,
+                                duration: 2,
+                                opacity: 0.8,
+                                speed: 3
+                            },
+                            repulse: {
+                                distance: 200,
+                                duration: 0.4
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+                
+                // GSAP animations for hero section
+                gsap.from(".hero-content h1", {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1.2,
+                    delay: 0.5
+                });
+                
+                gsap.from(".hero-content p", {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1.2,
+                    delay: 0.8
+                });
+                
+                gsap.from(".hero-content .btn", {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1.2,
+                    delay: 1.1
+                });
+            }, []);
+            
+            return (
+                <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+                    <div className="absolute inset-0 hero-gradient"></div>
+                    <div id="particles-js"></div>
+                    <div className="container mx-auto px-4 z-10 text-center hero-content">
+                        <h1 className="text-5xl md:text-7xl font-bold font-handwritten mb-6">
+                            Happy Anniversary, Nurjahan!
+                        </h1>
+                        <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
+                            From Manirul with All My Love, 11 May 2025
+                        </p>
+                        <a href="#memories" className="btn bg-primary hover:bg-opacity-80 text-white px-8 py-3 rounded-full font-medium transition-all transform hover:scale-105 inline-block">
+                            Explore Our Memories
+                        </a>
+                    </div>
+                </section>
+            );
+        };
+        
+        // Memories Section Component
+        const Memories = () => {
+            const [memories, setMemories] = React.useState([]);
+            
+            React.useEffect(() => {
+                // Load photo metadata
+                fetch('./photo_metadata.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        setMemories(data.photos);
+                        
+                        // Initialize scroll animations after data is loaded
+                        setTimeout(() => {
+                            gsap.registerPlugin(ScrollTrigger);
+                            
+                            gsap.utils.toArray('.memory-card').forEach((card, i) => {
+                                gsap.from(card, {
+                                    y: 50,
+                                    opacity: 0,
+                                    duration: 0.8,
+                                    scrollTrigger: {
+                                        trigger: card,
+                                        start: "top bottom-=100",
+                                        toggleActions: "play none none none"
+                                    },
+                                    delay: i * 0.1
+                                });
+                            });
+                        }, 500);
+                    })
+                    .catch(error => console.error('Error loading memories:', error));
+            }, []);
+            
+            return (
+                <section id="memories" className="py-20 bg-dark">
+                    <div className="container mx-auto px-4">
+                        <h2 className="text-4xl font-handwritten text-center mb-12 gradient-text">Our Beautiful Memories</h2>
+                        <p className="text-center mb-12 max-w-2xl mx-auto">Every moment with you is a treasure I hold dear to my heart. Here are some of our most precious memories together.</p>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 memory-grid">
+                            {memories.map((memory, index) => (
+                                <div key={index} className="memory-card bg-dark rounded-lg overflow-hidden shadow-lg">
+                                    <div className="h-64 overflow-hidden">
+                                        <img 
+                                            src={`./images/${memory.filename}`} 
+                                            alt={memory.title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    <div className="p-4">
+                                        <h3 className="text-xl font-medium mb-2">{memory.title}</h3>
+                                        <p className="text-gray-400 text-sm mb-2">{memory.date}</p>
+                                        <p className="text-gray-300 memory-caption">{memory.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        
+                        {memories.length === 0 && (
+                            <div className="text-center py-10">
+                                <p className="text-gray-400">Loading our beautiful memories...</p>
+                            </div>
+                        )}
+                    </div>
+                </section>
+            );
+        };
+        
+        // Letter Section Component
+        const Letter = () => {
+            const [musicPlaying, setMusicPlaying] = React.useState(false);
+            const audioRef = React.useRef(null);
+            
+            React.useEffect(() => {
+                // Create audio element for background music
+                audioRef.current = new Audio('https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0c6ff1ebd.mp3');
+                audioRef.current.loop = true;
+                audioRef.current.volume = 0.4;
+                
+                // GSAP animations for letter text
+                gsap.registerPlugin(ScrollTrigger);
+                
+                const letterLines = gsap.utils.toArray('.letter-line');
+                letterLines.forEach((line, i) => {
+                    gsap.from(line, {
+                        opacity: 0,
+                        y: 20,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: line,
+                            start: "top bottom-=50",
+                            toggleActions: "play none none none"
+                        },
+                        delay: 0.2 * i
+                    });
+                });
+                
+                return () => {
+                    if (audioRef.current) {
+                        audioRef.current.pause();
+                        audioRef.current = null;
+                    }
+                };
+            }, []);
+            
+            const toggleMusic = () => {
+                if (musicPlaying) {
+                    audioRef.current.pause();
+                } else {
+                    audioRef.current.play();
+                }
+                setMusicPlaying(!musicPlaying);
+            };
+            
+            return (
+                <section id="letter" className="py-20 bg-gradient-to-b from-dark to-secondary bg-opacity-90">
+                    <div className="container mx-auto px-4">
+                        <h2 className="text-4xl font-handwritten text-center mb-12 gradient-text">A Letter For You</h2>
+                        
+                        <div className="max-w-3xl mx-auto bg-white bg-opacity-10 backdrop-blur-md p-8 md:p-12 rounded-lg shadow-xl" style={{backgroundImage: "url('https://img.freepik.com/free-photo/crumpled-paper-background_1373-412.jpg')", backgroundSize: "cover", backgroundBlendMode: "overlay"}}>
+                            <button 
+                                onClick={toggleMusic}
+                                className="mb-6 mx-auto flex items-center justify-center gap-2 bg-primary bg-opacity-80 hover:bg-opacity-100 text-white px-4 py-2 rounded-full transition-all"
+                            >
+                                {musicPlaying ? (
+                                    <>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                                        </svg>
+                                        Stop Music
+                                    </>
+                                ) : (
+                                    <>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clipRule="evenodd" />
+                                        </svg>
+                                        Play Music
+                                    </>
+                                )}
+                            </button>
+                            
+                            <div className="font-handwritten text-xl md:text-2xl leading-relaxed text-light">
+                                <p className="letter-line mb-4">My Dearest Nurjahan,</p>
+                                
+                                <p className="letter-line mb-4">On this special day, 11 May 2025, I want to celebrate you and our beautiful journey together. As I sit here writing this letter, my heart is overflowing with love and gratitude for having you in my life.</p>
+                                
+                                <p className="letter-line mb-4">From the moment our paths crossed, I knew there was something extraordinary about you. Your smile, your kindness, your strength – everything about you captivated me. With each passing day, my love for you has only grown deeper and stronger.</p>
+                                
+                                <p className="letter-line mb-4">Remember our first date? How nervous we both were? And now look at us – building a life together, creating memories that will last a lifetime. Every moment with you feels like a blessing, a gift I cherish with all my heart.</p>
+                                
+                                <p className="letter-line mb-4">You've been my rock during difficult times, my cheerleader during victories, and my best friend through it all. You understand me like no one else does, and you love me despite my flaws and imperfections.</p>
+                                
+                                <p className="letter-line mb-4">As we celebrate another year together, I want you to know that my commitment to you only grows stronger. I promise to stand by your side, to support your dreams, to make you laugh, and to love you unconditionally – today, tomorrow, and for all the days to come.</p>
+                                
+                                <p className="letter-line mb-4">Thank you for being you. Thank you for choosing me. Thank you for making my life more beautiful than I ever imagined it could be.</p>
+                                
+                                <p className="letter-line mb-4">Happy Anniversary, my love.</p>
+                                
+                                <p className="letter-line text-right">Forever yours,<br/>Manirul</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+        
+        // Song Section Component
+        const Song = () => {
+            const [isPlaying, setIsPlaying] = React.useState(false);
+            const [currentTime, setCurrentTime] = React.useState(0);
+            const [duration, setDuration] = React.useState(0);
+            const [volume, setVolume] = React.useState(0.7);
+            const audioRef = React.useRef(null);
+            const progressBarRef = React.useRef(null);
+            const animationRef = React.useRef(null);
+            const visualizerRef = React.useRef(null);
+            
+            React.useEffect(() => {
+                // Initialize audio
+                const audio = new Audio('https://cdn.pixabay.com/download/audio/2022/10/30/audio_f1b4f4c8aa.mp3');
+                audioRef.current = audio;
+                
+                // Set up event listeners
+                audio.addEventListener('loadedmetadata', () => {
+                    setDuration(audio.duration);
+                });
+                
+                audio.addEventListener('ended', () => {
+                    setIsPlaying(false);
+                    cancelAnimationFrame(animationRef.current);
+                    setCurrentTime(0);
+                    audio.currentTime = 0;
+                });
+                
+                // Create visualizer bars
+                const visualizerContainer = visualizerRef.current;
+                if (visualizerContainer) {
+                    visualizerContainer.innerHTML = '';
+                    for (let i = 0; i < 50; i++) {
+                        const bar = document.createElement('div');
+                        bar.className = 'visualizer-bar';
+                        visualizerContainer.appendChild(bar);
+                    }
+                }
+                
+                // GSAP animations
+                gsap.from('.audio-player', {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: '.audio-player',
+                        start: 'top bottom-=100',
+                        toggleActions: 'play none none none'
+                    }
+                });
+                
+                return () => {
+                    audio.pause();
+                    audio.src = '';
+                    cancelAnimationFrame(animationRef.current);
+                };
+            }, []);
+            
+            const togglePlayPause = () => {
+                if (isPlaying) {
+                    audioRef.current.pause();
+                    cancelAnimationFrame(animationRef.current);
+                } else {
+                    audioRef.current.play();
+                    animationRef.current = requestAnimationFrame(updateProgress);
+                    updateVisualizer();
+                }
+                setIsPlaying(!isPlaying);
+            };
+            
+            const updateProgress = () => {
+                setCurrentTime(audioRef.current.currentTime);
+                const progressPercent = (audioRef.current.currentTime / duration) * 100;
+                if (progressBarRef.current) {
+                    progressBarRef.current.style.width = `${progressPercent}%`;
+                }
+                animationRef.current = requestAnimationFrame(updateProgress);
+            };
+            
+            const updateVisualizer = () => {
+                if (!visualizerRef.current || !isPlaying) return;
+                
+                const bars = visualizerRef.current.querySelectorAll('.visualizer-bar');
+                bars.forEach((bar) => {
+                    const height = Math.floor(Math.random() * 50) + 5;
+                    bar.style.height = `${height}px`;
+                });
+                
+                setTimeout(updateVisualizer, 100);
+            };
+            
+            const handleProgressClick = (e) => {
+                const progressBar = e.currentTarget;
+                const clickPosition = (e.clientX - progressBar.getBoundingClientRect().left) / progressBar.offsetWidth;
+                const newTime = clickPosition * duration;
+                
+                setCurrentTime(newTime);
+                if (progressBarRef.current) {
+                    progressBarRef.current.style.width = `${clickPosition * 100}%`;
+                }
+                
+                audioRef.current.currentTime = newTime;
+            };
+            
+            const handleVolumeChange = (e) => {
+                const newVolume = parseFloat(e.target.value);
+                setVolume(newVolume);
+                audioRef.current.volume = newVolume;
+            };
+            
+            const formatTime = (time) => {
+                const minutes = Math.floor(time / 60);
+                const seconds = Math.floor(time % 60);
+                return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            };
+            
+            return (
+                <section id="song" className="py-20 bg-dark">
+                    <div className="container mx-auto px-4">
+                        <h2 className="text-4xl font-handwritten text-center mb-12 gradient-text">Our Song</h2>
+                        <p className="text-center mb-12 text-xl">Nurjahan, this song reminds me of you, Manirul.</p>
+                        
+                        <div className="max-w-2xl mx-auto audio-player">
+                            <div className="visualizer mb-6" ref={visualizerRef}></div>
+                            
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-sm text-gray-300">{formatTime(currentTime)}</span>
+                                <span className="text-sm text-gray-300">{formatTime(duration)}</span>
+                            </div>
+                            
+                            <div className="progress-bar mb-6" onClick={handleProgressClick}>
+                                <div className="progress" ref={progressBarRef}></div>
+                            </div>
+                            
+                            <div className="flex justify-between items-center">
+                                <button 
+                                    onClick={togglePlayPause}
+                                    className="bg-primary hover:bg-opacity-80 text-white p-3 rounded-full transition-all transform hover:scale-105"
+                                >
+                                    {isPlaying ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    )}
+                                </button>
+                                
+                                <div className="flex items-center w-1/2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                                    </svg>
+                                    <input 
+                                        type="range" 
+                                        min="0" 
+                                        max="1" 
+                                        step="0.01" 
+                                        value={volume} 
+                                        onChange={handleVolumeChange}
+                                        className="w-full accent-primary cursor-pointer"
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="mt-6 text-center text-sm text-gray-400">
+                                <p>♫ Perfect - Ed Sheeran (Royalty Free Version) ♫</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+        
+        // Message Section Component
+        const Message = () => {
+            const [showConfetti, setShowConfetti] = React.useState(false);
+            
+            React.useEffect(() => {
+                // Initialize typewriter effect
+                const typewriterElement = document.querySelector('.typewriter-text');
+                if (typewriterElement) {
+                    typewriterElement.style.width = '0';
+                    setTimeout(() => {
+                        typewriterElement.style.width = '100%';
+                    }, 500);
+                }
+                
+                // Initialize GSAP animations
+                gsap.from('.message-container', {
+                    scale: 0.9,
+                    opacity: 0,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: '.message-container',
+                        start: 'top bottom-=100',
+                        toggleActions: 'play none none none'
+                    }
+                });
+                
+                // Initialize particles.js for floating hearts
+                particlesJS('message-particles', {
+                    particles: {
+                        number: {
+                            value: 30,
+                            density: {
+                                enable: true,
+                                value_area: 800
+                            }
+                        },
+                        color: {
+                            value: ['#FF4B91', '#FFD1DA', '#FFFFFF']
+                        },
+                        shape: {
+                            type: 'heart',
+                            stroke: {
+                                width: 0,
+                                color: '#000000'
+                            }
+                        },
+                        opacity: {
+                            value: 0.7,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        size: {
+                            value: 15,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 5,
+                                sync: false
+                            }
+                        },
+                        move: {
+                            enable: true,
+                            speed: 3,
+                            direction: 'none',
+                            random: true,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'bubble'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            bubble: {
+                                distance: 150,
+                                size: 20,
+                                duration: 2,
+                                opacity: 0.8,
+                                speed: 3
+                            },
+                            push: {
+                                particles_nb: 4
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+            }, []);
+            
+            const triggerConfetti = () => {
+                setShowConfetti(true);
+                setTimeout(() => {
+                    setShowConfetti(false);
+                }, 5000);
+            };
+            
+            return (
+                <section id="message" className="py-20 bg-gradient-to-b from-secondary to-primary bg-opacity-90 relative overflow-hidden">
+                    <div id="message-particles" className="absolute inset-0 z-0"></div>
+                    
+                    {showConfetti && (
+                        <div className="confetti-container absolute inset-0 z-10 pointer-events-none">
+                            {Array.from({ length: 100 }).map((_, i) => {
+                                const size = Math.random() * 10 + 5;
+                                const left = Math.random() * 100;
+                                const animationDuration = Math.random() * 3 + 2;
+                                const color = ['#FF4B91', '#A367B1', '#FFD1DA', '#FFFFFF'][Math.floor(Math.random() * 4)];
+                                
+                                return (
+                                    <div 
+                                        key={i}
+                                        className="absolute rounded-full"
+                                        style={{
+                                            width: `${size}px`,
+                                            height: `${size}px`,
+                                            backgroundColor: color,
+                                            left: `${left}%`,
+                                            top: '-20px',
+                                            animation: `fall ${animationDuration}s linear forwards`
+                                        }}
+                                    ></div>
+                                );
+                            })}
+                        </div>
+                    )}
+                    
+                    <style jsx>{`
+                        @keyframes fall {
+                            0% {
+                                transform: translateY(-20px) rotate(0deg);
+                                opacity: 1;
+                            }
+                            100% {
+                                transform: translateY(100vh) rotate(720deg);
+                                opacity: 0;
+                            }
+                        }
+                    `}</style>
+                    
+                    <div className="container mx-auto px-4 text-center relative z-10">
+                        <h2 className="text-4xl font-handwritten text-center mb-12 text-white">My Message To You</h2>
+                        
+                        <div className="max-w-3xl mx-auto message-container bg-white bg-opacity-10 backdrop-blur-md p-8 md:p-12 rounded-lg shadow-xl">
+                            <div className="typewriter mb-8">
+                                <p className="typewriter-text text-xl md:text-2xl text-white font-medium">
+                                    Nurjahan, you are my forever, and I can't wait for more memories with you. Happy Anniversary, 11 May 2025!
+                                </p>
+                            </div>
+                            
+                            <p className="text-white text-lg mb-8">
+                                Every day with you is a blessing. Your smile brightens my darkest days, your touch calms my restless heart, and your love gives meaning to my life. I cherish every moment we spend together and look forward to creating countless more beautiful memories.
+                            </p>
+                            
+                            <button 
+                                onClick={triggerConfetti}
+                                className="bg-white text-primary hover:bg-opacity-80 px-6 py-3 rounded-full font-medium transition-all transform hover:scale-105 inline-block"
+                            >
+                                Send Love ❤️
+                            </button>
+                            
+                            <p className="mt-8 text-white font-handwritten text-xl">Love, Manirul</p>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+        
+        // Add Memory Component
+        const AddMemory = () => {
+            const [title, setTitle] = React.useState('');
+            const [date, setDate] = React.useState('');
+            const [description, setDescription] = React.useState('');
+            const [imageFile, setImageFile] = React.useState(null);
+            const [previewUrl, setPreviewUrl] = React.useState('');
+            const [showSuccess, setShowSuccess] = React.useState(false);
+            const [memories, setMemories] = React.useState([]);
+            
+            React.useEffect(() => {
+                // Load existing memories from local storage
+                const storedMemories = localStorage.getItem('futureMemories');
+                if (storedMemories) {
+                    try {
+                        setMemories(JSON.parse(storedMemories));
+                    } catch (e) {
+                        console.error('Error parsing stored memories:', e);
+                    }
+                }
+                
+                // GSAP animations
+                gsap.from('.memory-form', {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: '.memory-form',
+                        start: 'top bottom-=100',
+                        toggleActions: 'play none none none'
+                    }
+                });
+                
+                gsap.from('.saved-memories', {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    delay: 0.3,
+                    scrollTrigger: {
+                        trigger: '.saved-memories',
+                        start: 'top bottom-=100',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            }, []);
+            
+            const handleImageChange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    setImageFile(file);
+                    
+                    // Create preview URL
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        setPreviewUrl(reader.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            
+            const handleSubmit = () => {
+                if (!title || !date || !description) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                const newMemory = {
+                    id: Date.now(),
+                    title,
+                    date,
+                    description,
+                    image: previewUrl || null
+                };
+                
+                const updatedMemories = [...memories, newMemory];
+                setMemories(updatedMemories);
+                
+                // Save to local storage
+                localStorage.setItem('futureMemories', JSON.stringify(updatedMemories));
+                
+                // Reset form
+                setTitle('');
+                setDate('');
+                setDescription('');
+                setImageFile(null);
+                setPreviewUrl('');
+                
+                // Show success animation
+                setShowSuccess(true);
+                setTimeout(() => {
+                    setShowSuccess(false);
+                }, 3000);
+            };
+            
+            const removeMemory = (id) => {
+                const updatedMemories = memories.filter(memory => memory.id !== id);
+                setMemories(updatedMemories);
+                localStorage.setItem('futureMemories', JSON.stringify(updatedMemories));
+            };
+            
+            return (
+                <section id="add-memory" className="py-20 bg-dark">
+                    <div className="container mx-auto px-4">
+                        <h2 className="text-4xl font-handwritten text-center mb-12 gradient-text">Add Future Memories</h2>
+                        
+                        <div className="max-w-2xl mx-auto bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-lg shadow-xl memory-form">
+                            <p className="text-center mb-8">Add new memories to cherish for years to come</p>
+                            
+                            <div className="mb-6">
+                                <label className="block text-gray-300 mb-2">Memory Title</label>
+                                <input 
+                                    type="text" 
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    className="w-full bg-dark border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary"
+                                    placeholder="Our Beach Trip"
+                                />
+                            </div>
+                            
+                            <div className="mb-6">
+                                <label className="block text-gray-300 mb-2">Date</label>
+                                <input 
+                                    type="date" 
+                                    value={date}
+                                    onChange={(e) => setDate(e.target.value)}
+                                    className="w-full bg-dark border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary"
+                                />
+                            </div>
+                            
+                            <div className="mb-6">
+                                <label className="block text-gray-300 mb-2">Description</label>
+                                <textarea 
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    className="w-full bg-dark border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary h-32"
+                                    placeholder="A beautiful day at the beach where we watched the sunset together..."
+                                ></textarea>
+                            </div>
+                            
+                            <div className="mb-6">
+                                <label className="block text-gray-300 mb-2">Image (Optional)</label>
+                                <input 
+                                    type="file" 
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                    className="w-full bg-dark border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary"
+                                />
+                                
+                                {previewUrl && (
+                                    <div className="mt-4 relative">
+                                        <img 
+                                            src={previewUrl} 
+                                            alt="Preview" 
+                                            className="w-full h-48 object-cover rounded-lg"
+                                        />
+                                        <button 
+                                            onClick={() => {setPreviewUrl(''); setImageFile(null);}}
+                                            className="absolute top-2 right-2 bg-dark bg-opacity-70 rounded-full p-1"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                            
+                            <button 
+                                onClick={handleSubmit}
+                                className="w-full bg-primary hover:bg-opacity-80 text-white py-3 rounded-lg font-medium transition-all transform hover:scale-105"
+                            >
+                                Save Memory
+                            </button>
+                            
+                            {showSuccess && (
+                                <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
+                                    <div className="bg-primary bg-opacity-90 text-white px-8 py-4 rounded-lg shadow-xl">
+                                        <div className="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <p>Memory saved successfully!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        
+                        {memories.length > 0 && (
+                            <div className="max-w-2xl mx-auto mt-12 saved-memories">
+                                <h3 className="text-2xl font-handwritten text-center mb-6 text-white">Saved Future Memories</h3>
+                                
+                                <div className="space-y-4">
+                                    {memories.map(memory => (
+                                        <div key={memory.id} className="bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-lg shadow-md">
+                                            <div className="flex justify-between items-start">
+                                                <div>
+                                                    <h4 className="text-xl font-medium text-white">{memory.title}</h4>
+                                                    <p className="text-gray-400 text-sm">{memory.date}</p>
+                                                </div>
+                                                <button 
+                                                    onClick={() => removeMemory(memory.id)}
+                                                    className="text-gray-400 hover:text-white"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            
+                                            <p className="text-gray-300 mt-2">{memory.description}</p>
+                                            
+                                            {memory.image && (
+                                                <div className="mt-3">
+                                                    <img 
+                                                        src={memory.image} 
+                                                        alt={memory.title} 
+                                                        className="w-full h-32 object-cover rounded-lg"
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </section>
+            );
+        };
+        
+        // Footer Component
+        const Footer = () => {
+            return (
+                <footer className="py-8 bg-dark border-t border-gray-800">
+                    <div className="container mx-auto px-4 text-center">
+                        <p className="text-gray-400">Made with ❤️ by Manirul for Nurjahan on 11 May 2025</p>
+                    </div>
+                </footer>
+            );
+        };
+        
+        // Render the App
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+        
+        // Preloader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function() {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+        
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-3');
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.add('py-3');
+                navbar.classList.remove('py-2');
+                navbar.classList.remove('shadow-md');
+            }
+        });
+        
+        // Scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            fadeElements.forEach(element => {
+                fadeInObserver.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
